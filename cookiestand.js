@@ -44,7 +44,7 @@ var collegeAndPence = {
   avgSale: 6.3,
   hours: ['6am', ' 7am', '8am', '9am', '10am', '11am'],
   cookiesPerHr: [],
-  
+
   randomCust: function () {
     //TODO: fix math dummy
     return Math.floor(Math.random() * this.minCust + this.maxCust);
@@ -52,10 +52,10 @@ var collegeAndPence = {
   },
   cookies: function () {
     return (this.avgSale * this.randomCust());
-  
+
   }
 };
- console.log(collegeAndPence.cookies());
+console.log(collegeAndPence.cookies());
 console.log(collegeAndPence.randomCust());
 
 for (hours = 0; hours < 15; hours++) {
