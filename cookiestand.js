@@ -42,9 +42,9 @@ var collegeAndPence = {
   minCust: 23,
   maxCust: 65,
   avgSale: 6.3,
-  hours: ['6am', ' 7am', '8am', '9am', '10am', '11am'],
+  hours: ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   cookiesPerHr: [],
-  
+
   randomCust: function () {
     //TODO: fix math dummy
     return Math.floor(Math.random() * this.minCust + this.maxCust);
@@ -52,14 +52,14 @@ var collegeAndPence = {
   },
   cookies: function () {
     return (this.avgSale * this.randomCust());
-  
+
   }
 };
- console.log(collegeAndPence.cookies());
+console.log(collegeAndPence.cookies());
 console.log(collegeAndPence.randomCust());
 
 for (hours = 0; hours < 15; hours++) {
-  console.log(hours);
+  collegeAndPence.cookiesPerHr.push(collegeAndPence.cookies());
 };
 
 
