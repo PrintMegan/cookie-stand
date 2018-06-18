@@ -28,29 +28,43 @@
 //2.3
 //4.6
 
-var firstAndPike = {
+var collegeAndPence = {
   minCust: 23,
   maxCust: 65,
   avgSale: 6.3,
-},
+  Math.floor(Math.random()),
+};
 
-var seaTacAirport = {
+var chandlerAnd14th = {
   minCust: 3,
   maxCust: 24,
   avgSale: 1.2,
-},
+  Math.floor(Math.random()),
+};
 
-var seattle = {
+var fresnoAnd14th = {
   minCust: 11,
   maxCust: 38,
   avgSale: 3.7,
-},
+  randomCust: Math.floor(Math.random() ),
+};
 
 
 
-var capitolHill= {
+var minnesotaAndBond= {
   minCust: 20,
   maxCust: 38,
   avgSale: 2.3,
-},
-var alki
+  Math.floor(Math.random()),
+};
+var neNeffAndNEWilliamson ={
+  minCust: 2,
+  maxCust: 16,
+  avgSale: 4.6,
+  Math.floor(Math.random()),
+};
+
+cookie.render function(){
+  var cookieRandom = document.getElementById('storeone');
+}
+console.log(cookie.render);
