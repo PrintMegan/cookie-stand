@@ -28,47 +28,96 @@
 //2.3
 //4.6
 
+
+//names of stores
+// collegeAndPence, ChandlerAnd14th, fresnoAnd14th, minnesotaAndBond, neNeffAndNEWWilliamson
+// var times; ['6am',' 7am', '8am', '9am', '10am', '11am'];
+// var store = [];
+// var storeListUlEl = document.getElementById('storeone');
+
+
+var hours;
 var collegeAndPence = {
+  name: 'College And Pence',
   minCust: 23,
   maxCust: 65,
   avgSale: 6.3,
-  randomCust: Math.floor(Math.random() * minCust + maxCust),
+  hours: ['6am', ' 7am', '8am', '9am', '10am', '11am'],
+  cookiesPerHr: [],
+  
+  randomCust: function () {
+    //TODO: fix math dummy
+    return Math.floor(Math.random() * this.minCust + this.maxCust);
+    console.log(this.randomCust);
+  },
+  cookies: function () {
+    return (this.avgSale * this.randomCust());
+  
+  }
+};
+ console.log(collegeAndPence.cookies());
+console.log(collegeAndPence.randomCust());
+
+for (hours = 0; hours < 15; hours++) {
+  console.log(hours);
 };
 
-var chandlerAnd14th = {
-  minCust: 3,
-  maxCust: 24,
-  avgSale: 1.2,
-  randomCust: Math.floor(Math.random() * minCust + maxCust),
-};
-
-var fresnoAnd14th = {
-  minCust: 11,
-  maxCust: 38,
-  avgSale: 3.7,
-  randomCust: Math.floor(Math.random() * minCust + maxCust ),
-};
 
 
 
-var minnesotaAndBond= {
-  minCust: 20,
-  maxCust: 38,
-  avgSale: 2.3,
- randomCust: Math.floor(Math.random() * minCust + maxCust),
-};
-var neNeffAndNEWilliamson ={
-  minCust: 2,
-  maxCust: 16,
-  avgSale: 4.6,
-  randomCust: Math.floor(Math.random() * minCust + maxCust),
-};
+// speak function (){
+//   document.write(this.randomCust);
+// },
+// };
+// console.log(collegeAndPence);
+// var chandlerAnd14th = {
+//   name: 'chandlerAnd14th',
+//   minCust: 3,
+//   maxCust: 24,
+//   avgSale: 1.2,
+//   randomCust: Math.floor(Math.random() * minCust + maxCust),
+//   // speak function (){
+//   //   document.write(this.randomCust);
+//   // },
+// };
 
-// cookie.render function(){
-//   var randomCust = document.getElementById('storeone');
+// var fresnoAnd14th = {
+//   name: 'fresnoAnd14th',
+//   minCust: 11,
+//   maxCust: 38,
+//   avgSale: 3.7,
+//   randomCust: Math.floor(Math.random() * minCust + maxCust),
+//   // speak function (){
+//   //   document.write(this.randomCust);
+//   // },
+// };
 
-//   for(var i in this.randomCust){
 
-//   }
-// }
-// console.log(cookie.render);
+
+// var minnesotaAndBond = {
+//   name: 'minnesotaAndBond',
+//   minCust: 20,
+//   maxCust: 38,
+//   avgSale: 2.3,
+//   randomCust: Math.floor(Math.random() * minCust + maxCust),
+//   // console.log(randomCust),
+//   // speak function (){
+//   //   document.write(this.randomCust);
+//   // },
+// };
+// var neNeffAndNEWilliamson = {
+//   name: 'neNeffAndNEWilliamson',
+//   minCust: 2,
+//   maxCust: 16,
+//   avgSale: 4.6,
+//   randomCust: Math.floor(Math.random() * minCust + maxCust),
+// };
+
+// // cookie.render function(){
+// //   var randomCust = document.getElementById('storeone');
+
+// //   for(var i in this.randomCust){
+
+// //   }
+// // }
+// // console.log(cookie.render);
