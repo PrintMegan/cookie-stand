@@ -32,21 +32,21 @@ var collegeAndPence = {
   minCust: 23,
   maxCust: 65,
   avgSale: 6.3,
-  Math.floor(Math.random()),
+  randomCust: Math.floor(Math.random() * minCust + maxCust),
 };
 
 var chandlerAnd14th = {
   minCust: 3,
   maxCust: 24,
   avgSale: 1.2,
-  Math.floor(Math.random()),
+  randomCust: Math.floor(Math.random() * minCust + maxCust),
 };
 
 var fresnoAnd14th = {
   minCust: 11,
   maxCust: 38,
   avgSale: 3.7,
-  randomCust: Math.floor(Math.random() ),
+  randomCust: Math.floor(Math.random() * minCust + maxCust ),
 };
 
 
@@ -55,16 +55,20 @@ var minnesotaAndBond= {
   minCust: 20,
   maxCust: 38,
   avgSale: 2.3,
-  Math.floor(Math.random()),
+ randomCust: Math.floor(Math.random() * minCust + maxCust),
 };
 var neNeffAndNEWilliamson ={
   minCust: 2,
   maxCust: 16,
   avgSale: 4.6,
-  Math.floor(Math.random()),
+  randomCust: Math.floor(Math.random() * minCust + maxCust),
 };
 
-cookie.render function(){
-  var cookieRandom = document.getElementById('storeone');
-}
-console.log(cookie.render);
+// cookie.render function(){
+//   var randomCust = document.getElementById('storeone');
+
+//   for(var i in this.randomCust){
+
+//   }
+// }
+// console.log(cookie.render);
