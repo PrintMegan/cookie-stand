@@ -57,11 +57,18 @@ collegeAndPence.renderCookiesEachHour = function () {
     ulEl.appendChild(liEl);
   }
   //total cookies and street names added
+  // debugger;
+  liEl = document.createElement('li');
+  // debugger;
   liEl.textContent = this.totalCookiesInADay + ' cookies total';
+  // debugger;
+  ulEl.appendChild(liEl);
+
   var h1 = document.createElement('H1');
   h1.textContent = this.name;
   container.appendChild(h1);
   container.appendChild(ulEl);
+  
 };
 collegeAndPence.renderCookiesEachHour();
 
