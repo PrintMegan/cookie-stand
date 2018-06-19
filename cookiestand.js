@@ -31,12 +31,18 @@
 
 //names of stores
 // collegeAndPence, ChandlerAnd14th, fresnoAnd14th, minnesotaAndBond, neNeffAndNEWWilliamson
+locations.push('College and Pence'),
+  locations.push('Chandler and 14th'),
+  locations.push('Fresno and 14th'),
+  locations.push('Minnesota and Bond'),
+  locations.push('NE Neff and NE Williamson');
 // var times; ['6am',' 7am', '8am', '9am', '10am', '11am'];
-// var store = [];
-// var storeListUlEl = document.getElementById('storeone');
-
-
+var store = [];
+var locations = [];
+var storeListUlLi = document.getElementById('stores');
+var cookiesPerHrListUlLi = document.getElementById('cookies');
 var hours;
+//FIRST LOCATION
 var collegeAndPence = {
   name: 'College And Pence',
   minCust: 23,
@@ -45,29 +51,40 @@ var collegeAndPence = {
   hours: ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   cookiesPerHr: [],
 
+  //random customer generator
   randomCust: function () {
     //TODO: fix math dummy
     return Math.floor(Math.random() * this.minCust + this.maxCust);
     console.log(this.randomCust);
   },
+  //multiplying avg sale num and random customer number for average cookies per customer
   cookies: function () {
     return (this.avgSale * this.randomCust());
+    //for loop to go through hour array
+    for (hours = 0; hours < 15; hours++) {
+      collegeAndPence.cookiesPerHr.push(collegeAndPence.cookies());
 
+      //I'm not sure what I'm doing here, but I'm trying to get it to show up on html. Doing a crap job though
+      var elName = document.getElementById('one');
+      elName.textContent = collegeAndPence.name;
+      console.log('hi im here');
+      var elCookies = document.getElementById('cookies');
+      elCookies.textContent = collegeAndPence.cookiesPerHr();
+
+    }
   }
 };
+
+
+
 console.log(collegeAndPence.cookies());
 console.log(collegeAndPence.randomCust());
 
-for (hours = 0; hours < 15; hours++) {
-  collegeAndPence.cookiesPerHr.push(collegeAndPence.cookies());
-};
 
 
 
 
-// speak function (){
-//   document.write(this.randomCust);
-// },
+//Bare bones code. working on first location before adding the rest.
 // };
 // console.log(collegeAndPence);
 // var chandlerAnd14th = {
@@ -113,11 +130,3 @@ for (hours = 0; hours < 15; hours++) {
 //   randomCust: Math.floor(Math.random() * minCust + maxCust),
 // };
 
-// // cookie.render function(){
-// //   var randomCust = document.getElementById('storeone');
-
-// //   for(var i in this.randomCust){
-
-// //   }
-// // }
-// // console.log(cookie.render);
