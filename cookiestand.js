@@ -1,89 +1,155 @@
 'use strict';
 
+var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var container = document.getElementById('store');
+/*
 //STORE LOCATIONS TO BE USED
-var collegeAndPence = ('College and Pence', 8, 23, 65, 6.3);
+// var collegeAndPence = ('College and Pence', 8, 23, 65, 6.3);
 // var chandlerAnd14th = ( 'Chandler and 14th', 3, 24, 1.4);
 // var fresnoAnd14th = ('Fresno and 14th', , , );
 // var minnesotaAndBond = ('Minnesota and Bond', , ,);
 // var neNeffAndNEWilliamson = ('NE Neff and NE Willimson', , , );
 //name, minCust, maxCust, avgSale
-// var container = document.getElementById('store');
 var storeTable = document.getElementById('store');
 var storesArray = [];
-var cookiesPerHr = [];
-var randomCustPerHour = [];
-var hours = ['6am: ', ' 7am: ', '8am: ', '9am: ', '10am: ', '11am: ', '12pm: ', '1pm: ', '2pm: ', '3pm: ', '4pm: ', '5pm: ', '6pm: ', '7pm: ', '8pm: '];
+// var createHeader;
+// var cookiesPerHr = [];
+// var randomCustPerHour = [];
 //CONSTRUCTOR FUNCTION FOR COOKIE SHOP
-function SalmonCookies(location, hoursopen, min, max, avgSales, cookiesPerHr) {
+function SalmonCookies(location, hoursopen, min, max, avgSales) {
   this.location = location;
   this.hoursopen = hoursopen;
   this.min = min;
   this.max = max;
   this.avgSales = avgSales;
-  this.cookiesPerHr = cookiesPerHr;
+  this.randomCustPerHour = [];
+  this.cookiesPerHr = [];
   this.totalSales = 0;
-  this.randomCustPerHour = randomCustPerHour;
   storesArray.push(this);
-  debugger;
 };
 
 new SalmonCookies('College and Pence', 8, 23, 65, 6.3);
-debugger;
-SalmonCookies.prototype.render = function () {
-  SalmonCookies.randomCust = function () {
-    for (var i in hours) {
-      return Math.floor(Math.random() * (this.max - this.min) + this.min);
-      debugger;
-    }
-  };
-  //placing random number into array for accessability later
-  SalmonCookies.customerPerHourArray = function () {
-    for (var i in hours) {
-      this.custPerHour[i] = (this.randomCustPerHour());
-    }
-  };
-  //multiplying random customer number by average amout of cookie sales. adding it to array
-  SalmonCookies.cookiesXcustomer = function () {
-    this.customerPerHourArray();
-    this.totalSales = 0;
+new SalmonCookies('Chandler and 14th', 8, 3, 24, 1.4);
+new SalmonCookies('Fresno and 14th', 8, 11, 38, 3.7);
+new SalmonCookies('Minnesota and Bond', 8, 30, 28, 2.3);
+new SalmonCookies('NE Neff and NE Williamson', 8, 2, 16, 4.6);
 
-    for (var i in hours) {
-      this.cookiesPerHr[i] = Math.ceil(this.randomCustPerHour[i] * this.avgSales);
 
-      this.totalSales += this.cookiesPerHr[i];
-    }
-  };
-  //rendering everything to HTML 
-  SalmonCookies.renderCookiesEachHour = function () {
-    this.cookiesXcustomer();
-    var ulEl = document.createElement('ul');
-    for (var i in hours) {
-      var liEl = document.createElement('li');
-      liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-      ulEl.appendChild(liEl);
-    }
-    //total cookies PER HOUR
-    liEl = document.createElement('li');
-    liEl.textContent = this.totalSales + ' cookies total';
-    ulEl.appendChild(liEl);
-    //ADDING NAME OF STREETS 
-    var h1 = document.createElement('H1');
-    h1.textContent = this.location;
-    container.appendChild(h1);
-    container.appendChild(ulEl);
-  };
 
+SalmonCookies.prototype.customGenerator = function () {
+  for (var i in hours) {
+    var customGenerator = Math.floor(Math.random() * (this.max - this.min) + this.min);
+    this.randomCustPerHour[i] = customGenerator;
+  }
 };
-SalmonCookies.renderAll = function () {
-  var trEl = document.createElement(tr);
-  var tdEl = document.createElement(td);
+SalmonCookies.prototype.cookiesXcustomer = function () {
+  this.customGenerator();
+  this.totalSales = 0;
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.randomCustPerHour[i] * this.avgSales);
+    this.totalSales += this.cookiesPerHr[i];
+  }
+};
+SalmonCookies.prototype.render = function () {
+  this.cookiesXcustomer();
+  var trEl = document.createElement('tr');
+  var tdEl = document.createElement('td');
   tdEl.textContent = this.location;
   trEl.appendChild(tdEl);
-  tdEl = cookiesPerHr;
+
+  for (var i in this.cookiesPerHr) {
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.cookiesPerHr[i];
+    trEl.appendChild(tdEl);
+  }
+  tdEl = document.createElement('td');
+  tdEl.textContent = this.totalSales;
   trEl.appendChild(tdEl);
-  // tdEl = 
+  storeTable.appendChild(trEl);
 };
-SalmonCookies.prototype.render();
+
+
+var createHeader = function () {
+  var trEl = document.createElement('tr');
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Stores';
+  trEl.appendChild(thEl);
+
+  for (var i in hours) {
+    thEl = document.createElement('th');
+    thEl.textContent = hours[i];
+    trEl.appendChild(thEl);
+  }
+  thEl = document.createElement('th');
+  thEl.textContent = 'Total';
+  storeTable.appendChild(trEl);
+};
+createHeader();
+for (var i in storesArray) {
+  storesArray[i].render();
+};
+debugger;
+
+
+// SalmonCookies.prototype.render = function () {
+//   SalmonCookies.randomCust = function () {
+//     for (var i in hours) {
+//       return Math.floor(Math.random() * (this.max - this.min) + this.min);
+//       debugger;
+//     }
+//   };
+//   //placing random number into array for accessability later
+//   SalmonCookies.customerPerHourArray = function () {
+//     for (var i in hours) {
+//       this.custPerHour[i] = this.randomCustPerHour();
+//     }
+//   };
+//   //multiplying random customer number by average amout of cookie sales. adding it to array
+//   SalmonCookies.cookiesXcustomer = function () {
+//     this.customerPerHourArray();
+//     this.totalSales = 0;
+
+//     for (var i in hours) {
+//       this.cookiesPerHr[i] = Math.ceil(this.randomCustPerHour[i] * this.avgSales);
+
+//       this.totalSales += this.cookiesPerHr[i];
+//     }
+//   };
+//   //rendering everything to HTML 
+//   SalmonCookies.renderCookiesEachHour = function () {
+//     this.cookiesXcustomer();
+//     var ulEl = document.createElement('ul');
+//     for (var i in hours) {
+//       var liEl = document.createElement('li');
+//       liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
+//       ulEl.appendChild(liEl);
+//     }
+//     //total cookies PER HOUR
+//     liEl = document.createElement('li');
+//     liEl.textContent = this.totalSales + ' cookies total';
+//     ulEl.appendChild(liEl);
+//     //ADDING NAME OF STREETS 
+//     var h1 = document.createElement('H1');
+//     h1.textContent = this.location;
+//     container.appendChild(h1);
+//     container.appendChild(ulEl);
+//   };
+
+// };
+// SalmonCookies.renderAll = function () {
+//   var trEl = document.createElement(tr);
+//   var tdEl = document.createElement(td);
+//   tdEl.textContent = this.location;
+//   trEl.appendChild(tdEl);
+
+// };
+// SalmonCookies.prototype.render();
+
+
+//calculating random customer number between min and max
+SalmonCookies.prototype.renderCookiesEachHour();
+
+*/
 
 
 
@@ -99,237 +165,230 @@ SalmonCookies.prototype.render();
 
 
 
-
-
-
-
-// //calculating random customer number between min and max
-// SalmonCookies.prototype.renderCookiesEachHour();
 
 //DON'T MIND ALL THIS OLD CODE. DON'T MIND ALL THIS OLD CODE. DON'T MIND ALL THIS OLD CODE. DON'T MIND THIS OLD CODE
 //I'm still using it.
 
-// //FIRST LOCATION
-// var collegeAndPence = {
-//   name: 'College And Pence',
-//   minCust: 23,
-//   maxCust: 65,
-//   avgSale: 6.3,
-//   cookiesPerHr: [],
-//   custPerHour: [],
-//   totalCookiesInADay: 0,
-// };
-// // generates random customer number
-// collegeAndPence.randomCust = function () {
-//   for (var i in hours) {
-//     return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+//FIRST LOCATION
+var collegeAndPence = {
+  name: 'College And Pence',
+  minCust: 23,
+  maxCust: 65,
+  avgSale: 6.3,
+  cookiesPerHr: [],
+  custPerHour: [],
+  totalCookiesInADay: 0,
+};
+// generates random customer number
+collegeAndPence.randomCust = function () {
+  for (var i in hours) {
+    return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+  };
+};
+// //assigns random cust number output  to cust per hour array
+collegeAndPence.customerPerHourArray = function () {
+  for (var i in hours) {
+    this.custPerHour[i] = (this.randomCust());
+    console.log(collegeAndPence.custPerHour[i]);
+  }
+};
+//customer MULTIPLIED BY AVG cookies
+collegeAndPence.cookiesXcustomer = function () {
+  this.customerPerHourArray();
+  this.totalCookiesInADay = 0;
 
-// //   };
-// };
-// // //assigns random cust number output  to cust per hour array
-// collegeAndPence.customerPerHourArray = function () {
-//   for (var i in hours) {
-//     this.custPerHour[i] = (this.randomCust());
-//     console.log(collegeAndPence.custPerHour[i]);
-//   }
-// };
-// //customer MULTIPLIED BY AVG cookies
-// collegeAndPence.cookiesXcustomer = function () {
-//   this.customerPerHourArray();
-//   this.totalCookiesInADay = 0;
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
 
-//   for (var i in hours) {
-//     this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
-
-//     this.totalCookiesInADay += this.cookiesPerHr[i];
-//   }
-// };
+    this.totalCookiesInADay += this.cookiesPerHr[i];
+  }
+};
 //rendering cookies per hour
-// collegeAndPence.renderCookiesEachHour = function () {
-//   this.cookiesXcustomer();
-//   var ulEl = document.createElement('ul');
-//   for (var i in hours) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-//     ulEl.appendChild(liEl);
-//   }
-//   //total cookies PER HOUR
-//   liEl = document.createElement('li');
-//   liEl.textContent = this.totalCookiesInADay + ' cookies total';
-//   ulEl.appendChild(liEl);
-// //ADDING NAME OF STREETS 
-//   var h1 = document.createElement('H1');
-//   h1.textContent = this.name;
-//   container.appendChild(h1);
-//   container.appendChild(ulEl);
+collegeAndPence.renderCookiesEachHour = function () {
+  this.cookiesXcustomer();
+  var ulEl = document.createElement('ul');
+  for (var i in hours) {
+    var liEl = document.createElement('li');
+    liEl.textContent = hours[i] + ": "  + this.cookiesPerHr[i] + ' cookies';
+    ulEl.appendChild(liEl);
+  }
+  //total cookies PER HOUR
+  liEl = document.createElement('li');
+  liEl.textContent = this.totalCookiesInADay + ' cookies total';
+  ulEl.appendChild(liEl);
+//ADDING NAME OF STREETS 
+  var h1 = document.createElement('H1');
+  h1.textContent = this.name;
+  container.appendChild(h1);
+  container.appendChild(ulEl);
 
-// };
-// collegeAndPence.renderCookiesEachHour();
+};
+collegeAndPence.renderCookiesEachHour();
 
-// //SECOND LOCATION
-// var chandlerAnd14th = {
-//   name: 'Chandler and 14th',
-//   minCust: 3,
-//   maxCust: 24,
-//   avgSale: 1.4,
-//   cookiesPerHr: [],
-//   custPerHour: [],
-//   totalCookiesInADay: 0,
-// };
-// // generates random customer number
-// chandlerAnd14th.randomCust = function () {
-//   for (var i in hours) {
-//     return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+//SECOND LOCATION
+var chandlerAnd14th = {
+  name: 'Chandler and 14th',
+  minCust: 3,
+  maxCust: 24,
+  avgSale: 1.4,
+  cookiesPerHr: [],
+  custPerHour: [],
+  totalCookiesInADay: 0,
+};
+// generates random customer number
+chandlerAnd14th.randomCust = function () {
+  for (var i in hours) {
+    return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
 
-//   };
-// };
-
-
-// // //assigns random cust number output  to cust per hour array
-// chandlerAnd14th.customerPerHourArray = function () {
-//   for (var i in hours) {
-//     this.custPerHour[i] = (this.randomCust());
-//     console.log(chandlerAnd14th.custPerHour[i]);
-//   }
-// };
-// //customer times cookies
-// chandlerAnd14th.cookiesXcustomer = function () {
-//   this.customerPerHourArray();
-//   this.totalCookiesInADay = 0;
-
-//   for (var i in hours) {
-//     this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
-
-//     this.totalCookiesInADay += this.cookiesPerHr[i];
-//   }
-// };
-// //rendering cookies per hour
-// chandlerAnd14th.renderCookiesEachHour = function () {
-//   this.cookiesXcustomer();
-
-//   var ulEl = document.createElement('ul');
-//   for (var i in hours) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-//     ulEl.appendChild(liEl);
-//   }
-//   //total cookies and street names added
-//   liEl.textContent = this.totalCookiesInADay + ' cookies total';
-//   var h1 = document.createElement('H1');
-//   h1.textContent = this.name;
-//   container.appendChild(h1);
-//   container.appendChild(ulEl);
-// };
-// chandlerAnd14th.renderCookiesEachHour();
-
-// //THIRD LOCATION
-// var minnesotaAndBond = {
-//   name: 'Minnesota and Bond',
-//   minCust: 20,
-//   maxCust: 38,
-//   avgSale: 2.3,
-//   cookiesPerHr: [],
-//   custPerHour: [],
-//   totalCookiesInADay: 0,
-// };
-// // generates random customer number
-// minnesotaAndBond.randomCust = function () {
-//   for (var i in hours) {
-//     return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
-
-//   };
-// };
+  };
+};
 
 
-// // //assigns random cust number output  to cust per hour array
-// minnesotaAndBond.customerPerHourArray = function () {
-//   for (var i in hours) {
-//     this.custPerHour[i] = (this.randomCust());
-//     console.log(chandlerAnd14th.custPerHour[i]);
-//   }
-// };
-// //customer times cookies
-// minnesotaAndBond.cookiesXcustomer = function () {
-//   this.customerPerHourArray();
-//   this.totalCookiesInADay = 0;
+// //assigns random cust number output  to cust per hour array
+chandlerAnd14th.customerPerHourArray = function () {
+  for (var i in hours) {
+    this.custPerHour[i] = (this.randomCust());
+    console.log(chandlerAnd14th.custPerHour[i]);
+  }
+};
+//customer times cookies
+chandlerAnd14th.cookiesXcustomer = function () {
+  this.customerPerHourArray();
+  this.totalCookiesInADay = 0;
 
-//   for (var i in hours) {
-//     this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
 
-//     this.totalCookiesInADay += this.cookiesPerHr[i];
-//   }
-// };
-// //rendering cookies per hour
-// minnesotaAndBond.renderCookiesEachHour = function () {
-//   this.cookiesXcustomer();
+    this.totalCookiesInADay += this.cookiesPerHr[i];
+  }
+};
+//rendering cookies per hour
+chandlerAnd14th.renderCookiesEachHour = function () {
+  this.cookiesXcustomer();
 
-//   var ulEl = document.createElement('ul');
-//   for (var i in hours) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-//     ulEl.appendChild(liEl);
-//   }
-//   //total cookies and street names added
-//   liEl.textContent = this.totalCookiesInADay + ' cookies total';
-//   var h1 = document.createElement('H1');
-//   h1.textContent = this.name;
-//   container.appendChild(h1);
-//   container.appendChild(ulEl);
-// };
-// minnesotaAndBond.renderCookiesEachHour();
+  var ulEl = document.createElement('ul');
+  for (var i in hours) {
+    var liEl = document.createElement('li');
+    liEl.textContent = hours[i] + ": " + this.cookiesPerHr[i] + ' cookies';
+    ulEl.appendChild(liEl);
+  }
+  //total cookies and street names added
+  liEl.textContent = this.totalCookiesInADay + ' cookies total';
+  var h1 = document.createElement('H1');
+  h1.textContent = this.name;
+  container.appendChild(h1);
+  container.appendChild(ulEl);
+};
+chandlerAnd14th.renderCookiesEachHour();
 
-// //FOURTH STORE
-// var neNeffAndNEWilliamson = {
-//   name: 'NE Neff and NE Williamson',
-//   minCust: 2,
-//   maxCust: 16,
-//   avgSale: 4.6,
-//   cookiesPerHr: [],
-//   custPerHour: [],
-//   totalCookiesInADay: 0,
-// };
-// // generates random customer number
-// neNeffAndNEWilliamson.randomCust = function () {
-//   for (var i in hours) {
-//     return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+//THIRD LOCATION
+var minnesotaAndBond = {
+  name: 'Minnesota and Bond',
+  minCust: 20,
+  maxCust: 38,
+  avgSale: 2.3,
+  cookiesPerHr: [],
+  custPerHour: [],
+  totalCookiesInADay: 0,
+};
+// generates random customer number
+minnesotaAndBond.randomCust = function () {
+  for (var i in hours) {
+    return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
 
-//   };
-// };
+  };
+};
 
 
-// // //assigns random cust number output  to cust per hour array
-// neNeffAndNEWilliamson.customerPerHourArray = function () {
-//   for (var i in hours) {
-//     this.custPerHour[i] = (this.randomCust());
-//     console.log(chandlerAnd14th.custPerHour[i]);
-//   }
-// };
-// //customer times cookies
-// neNeffAndNEWilliamson.cookiesXcustomer = function () {
-//   this.customerPerHourArray();
-//   this.totalCookiesInADay = 0;
+// //assigns random cust number output  to cust per hour array
+minnesotaAndBond.customerPerHourArray = function () {
+  for (var i in hours) {
+    this.custPerHour[i] = (this.randomCust());
+    console.log(chandlerAnd14th.custPerHour[i]);
+  }
+};
+//customer times cookies
+minnesotaAndBond.cookiesXcustomer = function () {
+  this.customerPerHourArray();
+  this.totalCookiesInADay = 0;
 
-//   for (var i in hours) {
-//     this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
 
-//     this.totalCookiesInADay += this.cookiesPerHr[i];
-//   }
-// };
-// //rendering cookies per hour
-// neNeffAndNEWilliamson.renderCookiesEachHour = function () {
-//   this.cookiesXcustomer();
+    this.totalCookiesInADay += this.cookiesPerHr[i];
+  }
+};
+//rendering cookies per hour
+minnesotaAndBond.renderCookiesEachHour = function () {
+  this.cookiesXcustomer();
 
-//   var ulEl = document.createElement('ul');
-//   for (var i in hours) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-//     ulEl.appendChild(liEl);
-//   }
-//   //total cookies and street names added
-//   liEl.textContent = this.totalCookiesInADay + ' cookies total';
-//   var h1 = document.createElement('H1');
-//   h1.textContent = this.name;
-//   container.appendChild(h1);
-//   container.appendChild(ulEl);
-// };
-// neNeffAndNEWilliamson.renderCookiesEachHour();
+  var ulEl = document.createElement('ul');
+  for (var i in hours) {
+    var liEl = document.createElement('li');
+    liEl.textContent = hours[i] + ": "  + this.cookiesPerHr[i] + ' cookies';
+    ulEl.appendChild(liEl);
+  }
+  //total cookies and street names added
+  liEl.textContent = this.totalCookiesInADay + ' cookies total';
+  var h1 = document.createElement('H1');
+  h1.textContent = this.name;
+  container.appendChild(h1);
+  container.appendChild(ulEl);
+};
+minnesotaAndBond.renderCookiesEachHour();
+
+//FOURTH STORE
+var neNeffAndNEWilliamson = {
+  name: 'NE Neff and NE Williamson',
+  minCust: 2,
+  maxCust: 16,
+  avgSale: 4.6,
+  cookiesPerHr: [],
+  custPerHour: [],
+  totalCookiesInADay: 0,
+};
+// generates random customer number
+neNeffAndNEWilliamson.randomCust = function () {
+  for (var i in hours) {
+    return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+
+  };
+};
+
+
+// //assigns random cust number output  to cust per hour array
+neNeffAndNEWilliamson.customerPerHourArray = function () {
+  for (var i in hours) {
+    this.custPerHour[i] = (this.randomCust());
+    console.log(chandlerAnd14th.custPerHour[i]);
+  }
+};
+//customer times cookies
+neNeffAndNEWilliamson.cookiesXcustomer = function () {
+  this.customerPerHourArray();
+  this.totalCookiesInADay = 0;
+
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
+
+    this.totalCookiesInADay += this.cookiesPerHr[i];
+  }
+};
+//rendering cookies per hour
+neNeffAndNEWilliamson.renderCookiesEachHour = function () {
+  this.cookiesXcustomer();
+
+  var ulEl = document.createElement('ul');
+  for (var i in hours) {
+    var liEl = document.createElement('li');
+    liEl.textContent = hours[i] + ": "  + this.cookiesPerHr[i] + ' cookies';
+    ulEl.appendChild(liEl);
+  }
+  //total cookies and street names added
+  liEl.textContent = this.totalCookiesInADay + ' cookies total';
+  var h1 = document.createElement('H1');
+  h1.textContent = this.name;
+  container.appendChild(h1);
+  container.appendChild(ulEl);
+};
+neNeffAndNEWilliamson.renderCookiesEachHour();
