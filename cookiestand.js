@@ -1,13 +1,11 @@
 'use strict';
 
-//names of stores
-// collegeAndPence, ChandlerAnd14th, fresnoAnd14th, minnesotaAndBond, neNeffAndNEWWilliamson
-
+var stores = [];
 var container = document.getElementById('store');
 var hours = ['6am: ', ' 7am: ', '8am: ', '9am: ', '10am: ', '11am: ', '12pm: ', '1pm: ', '2pm: ', '3pm: ', '4pm: ', '5pm: ', '6pm: ', '7pm: ', '8pm: '];
-var storeOne = (collegeAndPence,);
+
 //STORE LOCATIONS TO BE USED
-var collegeAndPence = ( 'College and Pence',8, 23, 65, 6.3);
+var collegeAndPence = (new SalmonCookies('College and Pence', 8, 23, 65, 6.3));
 // var chandlerAnd14th = ( 'Chandler and 14th', 3, 24, 1.4);
 // var fresnoAnd14th = ('Fresno and 14th', , , );
 // var minnesotaAndBond = ('Minnesota and Bond', , ,);
@@ -16,28 +14,28 @@ var collegeAndPence = ( 'College and Pence',8, 23, 65, 6.3);
 
 //CONSTRUCTOR FUNCTION FOR COOKIE SHOP
 function SalmonCookies(location, hoursopen, min, max, avgSales) {
-this.name = location;
-this.hoursopen = hoursopen;
-this.min = min;
-this.max = max;
-this.avgSales = avgSales;
-this.cookiesPerHr = cookiesPerHr[];
-this.totalSales = 0;
-this.randomCustPerHour = randomCustPerHour[];
-
+  this.name = location;
+  this.hoursopen = hoursopen;
+  this.min = min;
+  this.max = max;
+  this.avgSales = avgSales;
+  this.cookiesPerHr = cookiesPerHr[];
+  this.totalSales = 0;
+  this.randomCustPerHour = randomCustPerHour[];
 };
+//calculating random customer number between min and max
 SalmonCookies.prototype.randomCust = function () {
   for (var i in hours) {
     return Math.floor(Math.random() * (this.max - this.min) + this.min);
-}
+  }
 };
-
+//placing random number into array for accessability later
 SalmonCookies.prototype.customerPerHourArray = function () {
   for (var i in hours) {
     this.custPerHour[i] = (this.randomCustPerHour());
   }
 };
-
+//multiplying random customer number by average amout of cookie sales. adding it to array
 SalmonCookies.prototype.cookiesXcustomer = function () {
   this.customerPerHourArray();
   this.totalSales = 0;
@@ -48,6 +46,31 @@ SalmonCookies.prototype.cookiesXcustomer = function () {
     this.totalSales += this.cookiesPerHr[i];
   }
 };
+//rendering everything to HTML 
+SalmonCookies.prototype.renderCookiesEachHour = function () {
+  this.cookiesXcustomer();
+  var ulEl = document.createElement('ul');
+  for (var i in hours) {
+    var liEl = document.createElement('li');
+    liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
+    ulEl.appendChild(liEl);
+  }
+  //total cookies PER HOUR
+  liEl = document.createElement('li');
+  liEl.textContent = this.totalSales + ' cookies total';
+  ulEl.appendChild(liEl);
+  //ADDING NAME OF STREETS 
+  var h1 = document.createElement('H1');
+  h1.textContent = this.name;
+  container.appendChild(h1);
+  container.appendChild(ulEl);
+
+};
+SalmonCookies.prototype.renderCookiesEachHour();
+
+//DON'T MIND ALL THIS OLD CODE. DON'T MIND ALL THIS OLD CODE. DON'T MIND ALL THIS OLD CODE. DON'T MIND THIS OLD CODE
+//I'm still using it.
+
 // //FIRST LOCATION
 // var collegeAndPence = {
 //   name: 'College And Pence',
@@ -72,38 +95,38 @@ SalmonCookies.prototype.cookiesXcustomer = function () {
 //     console.log(collegeAndPence.custPerHour[i]);
 //   }
 // };
-//customer MULTIPLIED BY AVG cookies
-collegeAndPence.cookiesXcustomer = function () {
-  this.customerPerHourArray();
-  this.totalCookiesInADay = 0;
+// //customer MULTIPLIED BY AVG cookies
+// collegeAndPence.cookiesXcustomer = function () {
+//   this.customerPerHourArray();
+//   this.totalCookiesInADay = 0;
 
-  for (var i in hours) {
-    this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
+//   for (var i in hours) {
+//     this.cookiesPerHr[i] = Math.ceil(this.custPerHour[i] * this.avgSale);
 
-    this.totalCookiesInADay += this.cookiesPerHr[i];
-  }
-};
+//     this.totalCookiesInADay += this.cookiesPerHr[i];
+//   }
+// };
 //rendering cookies per hour
-collegeAndPence.renderCookiesEachHour = function () {
-  this.cookiesXcustomer();
-  var ulEl = document.createElement('ul');
-  for (var i in hours) {
-    var liEl = document.createElement('li');
-    liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
-    ulEl.appendChild(liEl);
-  }
-  //total cookies PER HOUR
-  liEl = document.createElement('li');
-  liEl.textContent = this.totalCookiesInADay + ' cookies total';
-  ulEl.appendChild(liEl);
-//ADDING NAME OF STREETS 
-  var h1 = document.createElement('H1');
-  h1.textContent = this.name;
-  container.appendChild(h1);
-  container.appendChild(ulEl);
-  
-};
-collegeAndPence.renderCookiesEachHour();
+// collegeAndPence.renderCookiesEachHour = function () {
+//   this.cookiesXcustomer();
+//   var ulEl = document.createElement('ul');
+//   for (var i in hours) {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = hours[i] + this.cookiesPerHr[i] + ' cookies';
+//     ulEl.appendChild(liEl);
+//   }
+//   //total cookies PER HOUR
+//   liEl = document.createElement('li');
+//   liEl.textContent = this.totalCookiesInADay + ' cookies total';
+//   ulEl.appendChild(liEl);
+// //ADDING NAME OF STREETS 
+//   var h1 = document.createElement('H1');
+//   h1.textContent = this.name;
+//   container.appendChild(h1);
+//   container.appendChild(ulEl);
+
+// };
+// collegeAndPence.renderCookiesEachHour();
 
 // //SECOND LOCATION
 // var chandlerAnd14th = {
