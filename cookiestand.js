@@ -23,32 +23,55 @@ this.max = max;
 this.avgSales = avgSales;
 this.cookiesPerHr = cookiesPerHr[];
 this.totalSales = 0;
+this.randomCustPerHour = randomCustPerHour[];
+
+};
+SalmonCookies.prototype.randomCust = function () {
+  for (var i in hours) {
+    return Math.floor(Math.random() * (this.max - this.min) + this.min);
+}
 };
 
-//FIRST LOCATION
-var collegeAndPence = {
-  name: 'College And Pence',
-  minCust: 23,
-  maxCust: 65,
-  avgSale: 6.3,
-  cookiesPerHr: [],
-  custPerHour: [],
-  totalCookiesInADay: 0,
-};
-// generates random customer number
-collegeAndPence.randomCust = function () {
+SalmonCookies.prototype.customerPerHourArray = function () {
   for (var i in hours) {
-    return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
-
-  };
-};
-// //assigns random cust number output  to cust per hour array
-collegeAndPence.customerPerHourArray = function () {
-  for (var i in hours) {
-    this.custPerHour[i] = (this.randomCust());
-    console.log(collegeAndPence.custPerHour[i]);
+    this.custPerHour[i] = (this.randomCustPerHour());
   }
 };
+
+SalmonCookies.prototype.cookiesXcustomer = function () {
+  this.customerPerHourArray();
+  this.totalSales = 0;
+
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.randomCustPerHour[i] * this.avgSales);
+
+    this.totalSales += this.cookiesPerHr[i];
+  }
+};
+// //FIRST LOCATION
+// var collegeAndPence = {
+//   name: 'College And Pence',
+//   minCust: 23,
+//   maxCust: 65,
+//   avgSale: 6.3,
+//   cookiesPerHr: [],
+//   custPerHour: [],
+//   totalCookiesInADay: 0,
+// };
+// // generates random customer number
+// collegeAndPence.randomCust = function () {
+//   for (var i in hours) {
+//     return Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+
+// //   };
+// };
+// // //assigns random cust number output  to cust per hour array
+// collegeAndPence.customerPerHourArray = function () {
+//   for (var i in hours) {
+//     this.custPerHour[i] = (this.randomCust());
+//     console.log(collegeAndPence.custPerHour[i]);
+//   }
+// };
 //customer MULTIPLIED BY AVG cookies
 collegeAndPence.cookiesXcustomer = function () {
   this.customerPerHourArray();
