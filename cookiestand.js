@@ -4,7 +4,7 @@ var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', 
 // var container = document.getElementById('store');
 
 //STORE LOCATIONS TO BE USED
-
+var storeInput = document.getElementById('storeInput');
 var storeTable = document.getElementById('store');
 var storesArray = [];
 
@@ -26,14 +26,6 @@ new SalmonCookies('Chandler and 14th', 8, 3, 24, 1.4);
 new SalmonCookies('Fresno and 14th', 8, 11, 38, 3.7);
 new SalmonCookies('Minnesota and Bond', 8, 30, 28, 2.3);
 new SalmonCookies('NE Neff and NE Williamson', 8, 2, 16, 4.6);
-
-// var Form = function (locations, hoursopen, min, max, avgSale){
-//   this.locations = locations
-//   this.hoursopened =hoursopened
-//   this.minC = minC
-//   this.maxC =maxC
-//   this.avgSale
-// }
 
 //random number generator for customers
 SalmonCookies.prototype.customGenerator = function () {
@@ -82,45 +74,70 @@ var createHeader = function () {
   }
   thEl = document.createElement('th');
   thEl.textContent = 'Total';
+  trEl.appendChild(thEl);
   storeTable.appendChild(trEl);
 };
-createHeader();
+function renderAll() {
 
-for (var i in storesArray) {
-  storesArray[i].render();
-};
-//bottom cell that needs to be filled when I figure out the loop
-var createFooter = function () {
+  storeTable.innerHTML = '';
+  createHeader();
+  for (var i in storesArray) {
+    storesArray[i].render();
+  }
+  footer();
+}
+
+function footer() {
+  var grandTotal = 0;
+
   var trEl = document.createElement('tr');
-  var tdEl = document.createElement('td');
-  tdEl.textContent = 'Totals';
-  trEl.appendChild(tdEl);
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Totals';
+  trEl.appendChild(thEl);
 
   for (var i in hours) {
-    tdEl = document.createElement('td');
-    tdEl.textContent = 'hello';
-    trEl.appendChild(tdEl);
+    var totalSoldPerHour = 0;
+    thEl = document.createElement('th');
+    for (var j in storesArray) {
+      totalSoldPerHour += storesArray[j].cookiesPerHr[i];
+    }
+
+    thEl.textContent = totalSoldPerHour;
+    trEl.appendChild(thEl);
+
+    grandTotal += totalSoldPerHour;
+
   }
+  thEl = document.createElement('th');
+  thEl.textContent = grandTotal;
+  trEl.appendChild(thEl);
   storeTable.appendChild(trEl);
-};
-createFooter();
-//yes tim I know it's not actually a footer. But it helps me remember that it's at the bottom. 
 
-/////////////////////////////////////////////////////////////////////////////
-//these will be to add the new information from the form I created. Is this enough comments yet? 
-//event listener
+}
+renderAll();
 
-
-
-
-//event handler
-function handleFormSubmit(event){
+// //event handler
+function handleFormSubmit(event) {
   event.preventDefault();
 
   var location = event.target.location.value;
-  var hoursOpen = event.target.hoursOpen.value;
-  // var min = event.target.min.value;
-   var newSubmit = new Store(location, hoursOpen);
-  //  newSubmit.push.this;
-newSubmit.push(this);
+  var hoursopen = event.target.hoursOpen.value;
+  var min = parseInt(event.target.min.value);
+  var max = parseInt(event.target.max.value);
+  var avgSales = parseFloat(event.target.avgSales.value);
+
+  if (!location || !hoursopen || !min || !max || !avgSales)
+    return alert('Please fill out form completely');
+
+  event.target.location.value = null;
+  event.target.hoursOpen.value = null;
+  event.target.min.value = null;
+  event.target.max.value = null;
+  event.target.avgSales.value = null;
+
+  new SalmonCookies(location, hoursopen, min, max, avgSales);
+  {
+    renderAll();
+  }
 };
+storeInput.addEventListener('submit', handleFormSubmit);
