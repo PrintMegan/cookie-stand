@@ -8,11 +8,34 @@
   </head>
   
   <body>
-    <table id="store">
-  
-     
-    </table>
-    <script src="cookiestand.js"></script>
+    <section id="store">
+    <form id="storeInput">
+      <fieldset>
+        <legend>Store Submission</legend>
+        <label for="location">Store Name:</label>
+        <input name="location" type="text" size="50"/><br>
+
+        <label for="hoursOpen">Hours Open: </label>
+        <input name="hoursOpen" type="text" size="50"/><br>
+
+        <label for="min">Minimum Customers: </label>
+        <input name="min" type="text" size="50"/><br>
+
+        <label for="max">Maximum Customers: </label>
+        <input name="max" type="text" size="50"/><br>
+
+        <label for="avgSales">Average Sales per person: </label>
+        <input name="avgSales" type="text" size="50"/><br>
+
+        <button type="submit">Submit</button>
+        
+        
+      </fieldset>
+      <!-- Trying to figure out IDs to link to JS. -->
+    </form>
+    <ul id="newList"></ul>
+  </section>
+  <script src="cookiestand.js"/>
     <link rel="stylesheet" type="text/css" href="./fish.css" />
   </body>
 </html>

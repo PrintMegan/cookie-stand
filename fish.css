@@ -1,11 +1,32 @@
 body {
+  width: 960px;
+  margin: 0 auto;
 background-color: #EDF5e1;
 
 }
 h1 {
   background-color: #05386b;
+  text-align: center;
+}
+#content {
+  overflow: auto;
+  height: 100%;
 }
 
-table {
-border: 10px, red;
+.menu {
+  text-align: center;
+  background-color:#efefef;
+  padding: 10px;
+  margin: 10px;
+}
+
+.column1, .column2, .column3 {
+  background-color: #efefef;
+  width: 300px;
+  margin: 10px;
+}
+
+li {
+  display: inline;
+  padding: 5px;
 }
