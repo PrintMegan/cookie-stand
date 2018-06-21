@@ -1,132 +1,143 @@
 'use strict';
 
-//NAME OF LOCATIONS
-//1st and Pike
-//SeaTac Airport
-//Seattle Center
-//Capitol Hill
-//Alki
+var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+// var container = document.getElementById('store');
 
-//MIN CUSTOMERS
-//23
-// 3
-// 11
-// 20
-// 2
+//STORE LOCATIONS TO BE USED
+var storeInput = document.getElementById('storeInput');
+var storeTable = document.getElementById('store');
+var storesArray = [];
 
-//MAX CUSTOMERS
-//65
-//24
-//38
-//38
-//16
-
-//AVG COOKIE SALE
-//6.3
-//1.2
-//3.7
-//2.3
-//4.6
-
-
-//names of stores
-// collegeAndPence, ChandlerAnd14th, fresnoAnd14th, minnesotaAndBond, neNeffAndNEWWilliamson
-locations.push('College and Pence'),
-  locations.push('Chandler and 14th'),
-  locations.push('Fresno and 14th'),
-  locations.push('Minnesota and Bond'),
-  locations.push('NE Neff and NE Williamson');
-// var times; ['6am',' 7am', '8am', '9am', '10am', '11am'];
-var store = [];
-var locations = [];
-var storeListUlLi = document.getElementById('stores');
-var cookiesPerHrListUlLi = document.getElementById('cookies');
-var hours;
-//FIRST LOCATION
-var collegeAndPence = {
-  name: 'College And Pence',
-  minCust: 23,
-  maxCust: 65,
-  avgSale: 6.3,
-  hours: ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
-  cookiesPerHr: [],
-
-  //random customer generator
-  randomCust: function () {
-    //TODO: fix math dummy
-    return Math.floor(Math.random() * this.minCust + this.maxCust);
-    console.log(this.randomCust);
-  },
-  //multiplying avg sale num and random customer number for average cookies per customer
-  cookies: function () {
-    return (this.avgSale * this.randomCust());
-    //for loop to go through hour array
-    for (hours = 0; hours < 15; hours++) {
-      collegeAndPence.cookiesPerHr.push(collegeAndPence.cookies());
-
-      //I'm not sure what I'm doing here, but I'm trying to get it to show up on html. Doing a crap job though
-      var elName = document.getElementById('one');
-      elName.textContent = collegeAndPence.name;
-      console.log('hi im here');
-      var elCookies = document.getElementById('cookies');
-      elCookies.textContent = collegeAndPence.cookiesPerHr();
-
-    }
-  }
+//CONSTRUCTOR FUNCTION FOR COOKIE SHOP
+function SalmonCookies(location, hoursopen, min, max, avgSales) {
+  this.location = location;
+  this.hoursopen = hoursopen;
+  this.min = min;
+  this.max = max;
+  this.avgSales = avgSales;
+  this.randomCustPerHour = [];
+  this.cookiesPerHr = [];
+  this.totalSales = 0;
+  storesArray.push(this);
 };
 
+new SalmonCookies('College and Pence', 8, 23, 65, 6.3);
+new SalmonCookies('Chandler and 14th', 8, 3, 24, 1.4);
+new SalmonCookies('Fresno and 14th', 8, 11, 38, 3.7);
+new SalmonCookies('Minnesota and Bond', 8, 30, 28, 2.3);
+new SalmonCookies('NE Neff and NE Williamson', 8, 2, 16, 4.6);
 
+//random number generator for customers
+SalmonCookies.prototype.customGenerator = function () {
+  for (var i in hours) {
+    var customGenerator = Math.floor(Math.random() * (this.max - this.min) + this.min);
+    this.randomCustPerHour[i] = customGenerator;
+  }
+};//average cookies bought per store * the random number generated
+SalmonCookies.prototype.cookiesXcustomer = function () {
+  this.customGenerator();
+  this.totalSales = 0;
+  for (var i in hours) {
+    this.cookiesPerHr[i] = Math.ceil(this.randomCustPerHour[i] * this.avgSales);
+    this.totalSales += this.cookiesPerHr[i];
+  }
+};//render table on HTML
+SalmonCookies.prototype.render = function () {
+  this.cookiesXcustomer();
+  var trEl = document.createElement('tr');
+  var tdEl = document.createElement('td');
+  tdEl.textContent = this.location;
+  trEl.appendChild(tdEl);
 
-console.log(collegeAndPence.cookies());
-console.log(collegeAndPence.randomCust());
+  for (var i in this.cookiesPerHr) {
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.cookiesPerHr[i];
+    trEl.appendChild(tdEl);
+  }
+  tdEl = document.createElement('td');
+  tdEl.textContent = this.totalSales;
+  trEl.appendChild(tdEl);
+  storeTable.appendChild(trEl);
+};
 
+//Header of times
+var createHeader = function () {
+  var trEl = document.createElement('tr');
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Stores';
+  trEl.appendChild(thEl);
 
+  for (var i in hours) {
+    thEl = document.createElement('th');
+    thEl.textContent = hours[i];
+    trEl.appendChild(thEl);
+  }
+  thEl = document.createElement('th');
+  thEl.textContent = 'Total';
+  trEl.appendChild(thEl);
+  storeTable.appendChild(trEl);
+};
+function renderAll() {
 
+  storeTable.innerHTML = '';
+  createHeader();
+  for (var i in storesArray) {
+    storesArray[i].render();
+  }
+  footer();
+}
 
+function footer() {
+  var grandTotal = 0;
 
-//Bare bones code. working on first location before adding the rest.
-// };
-// console.log(collegeAndPence);
-// var chandlerAnd14th = {
-//   name: 'chandlerAnd14th',
-//   minCust: 3,
-//   maxCust: 24,
-//   avgSale: 1.2,
-//   randomCust: Math.floor(Math.random() * minCust + maxCust),
-//   // speak function (){
-//   //   document.write(this.randomCust);
-//   // },
-// };
+  var trEl = document.createElement('tr');
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Totals';
+  trEl.appendChild(thEl);
 
-// var fresnoAnd14th = {
-//   name: 'fresnoAnd14th',
-//   minCust: 11,
-//   maxCust: 38,
-//   avgSale: 3.7,
-//   randomCust: Math.floor(Math.random() * minCust + maxCust),
-//   // speak function (){
-//   //   document.write(this.randomCust);
-//   // },
-// };
+  for (var i in hours) {
+    var totalSoldPerHour = 0;
+    thEl = document.createElement('th');
+    for (var j in storesArray) {
+      totalSoldPerHour += storesArray[j].cookiesPerHr[i];
+    }
 
+    thEl.textContent = totalSoldPerHour;
+    trEl.appendChild(thEl);
 
+    grandTotal += totalSoldPerHour;
 
-// var minnesotaAndBond = {
-//   name: 'minnesotaAndBond',
-//   minCust: 20,
-//   maxCust: 38,
-//   avgSale: 2.3,
-//   randomCust: Math.floor(Math.random() * minCust + maxCust),
-//   // console.log(randomCust),
-//   // speak function (){
-//   //   document.write(this.randomCust);
-//   // },
-// };
-// var neNeffAndNEWilliamson = {
-//   name: 'neNeffAndNEWilliamson',
-//   minCust: 2,
-//   maxCust: 16,
-//   avgSale: 4.6,
-//   randomCust: Math.floor(Math.random() * minCust + maxCust),
-// };
+  }
+  thEl = document.createElement('th');
+  thEl.textContent = grandTotal;
+  trEl.appendChild(thEl);
+  storeTable.appendChild(trEl);
 
+}
+renderAll();
+
+// //event handler
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  var location = event.target.location.value;
+  var hoursopen = event.target.hoursOpen.value;
+  var min = parseInt(event.target.min.value);
+  var max = parseInt(event.target.max.value);
+  var avgSales = parseFloat(event.target.avgSales.value);
+
+  if (!location || !hoursopen || !min || !max || !avgSales)
+    return alert('Please fill out form completely');
+
+  event.target.location.value = null;
+  event.target.hoursOpen.value = null;
+  event.target.min.value = null;
+  event.target.max.value = null;
+  event.target.avgSales.value = null;
+
+  new SalmonCookies(location, hoursopen, min, max, avgSales);
+  {
+    renderAll();
+  }
+};
+storeInput.addEventListener('submit', handleFormSubmit);
