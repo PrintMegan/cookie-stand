@@ -46,7 +46,6 @@ SalmonCookies.prototype.render = function () {
   var tdEl = document.createElement('td');
   tdEl.textContent = this.location;
   trEl.appendChild(tdEl);
-
   for (var i in this.cookiesPerHr) {
     tdEl = document.createElement('td');
     tdEl.textContent = this.cookiesPerHr[i];
@@ -64,7 +63,6 @@ var createHeader = function () {
   var thEl = document.createElement('th');
   thEl.textContent = 'Stores';
   trEl.appendChild(thEl);
-
   for (var i in hours) {
     thEl = document.createElement('th');
     thEl.textContent = hours[i];
@@ -83,14 +81,13 @@ function renderAll() {
   }
   footer();
 }
-
+//COLUMN FOR TOTALS
 function footer() {
   var grandTotal = 0;
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
   thEl.textContent = 'Totals';
   trEl.appendChild(thEl);
-
   for (var i in hours) {
     var totalSoldPerHour = 0;
     thEl = document.createElement('th');
@@ -108,10 +105,9 @@ function footer() {
 }
 renderAll();
 
-// //event handler
+// //event handler adding NEW cookiestore through form
 function handleFormSubmit(event) {
   event.preventDefault();
-
   var location = event.target.location.value;
   var hoursopen = event.target.hoursOpen.value;
   var min = parseInt(event.target.min.value);
@@ -120,13 +116,11 @@ function handleFormSubmit(event) {
 
   if (!location || !hoursopen || !min || !max || !avgSales)
     return alert('Please fill out form completely');
-
   event.target.location.value = null;
   event.target.hoursOpen.value = null;
   event.target.min.value = null;
   event.target.max.value = null;
   event.target.avgSales.value = null;
-
   new SalmonCookies(location, hoursopen, min, max, avgSales);
   {
     renderAll();
