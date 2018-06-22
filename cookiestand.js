@@ -1,9 +1,7 @@
 'use strict';
 
-var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-// var container = document.getElementById('store');
 
-//STORE LOCATIONS TO BE USED
+var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 var storeInput = document.getElementById('storeInput');
 var storeTable = document.getElementById('store');
 var storesArray = [];
@@ -20,7 +18,7 @@ function SalmonCookies(location, hoursopen, min, max, avgSales) {
   this.totalSales = 0;
   storesArray.push(this);
 };
-
+//locations for constructor
 new SalmonCookies('College and Pence', 8, 23, 65, 6.3);
 new SalmonCookies('Chandler and 14th', 8, 3, 24, 1.4);
 new SalmonCookies('Fresno and 14th', 8, 11, 38, 3.7);
@@ -60,7 +58,7 @@ SalmonCookies.prototype.render = function () {
   storeTable.appendChild(trEl);
 };
 
-//Header of times
+//Header of AM PM times
 var createHeader = function () {
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
