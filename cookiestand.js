@@ -78,7 +78,6 @@ var createHeader = function () {
   storeTable.appendChild(trEl);
 };
 function renderAll() {
-
   storeTable.innerHTML = '';
   createHeader();
   for (var i in storesArray) {
@@ -89,7 +88,6 @@ function renderAll() {
 
 function footer() {
   var grandTotal = 0;
-
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
   thEl.textContent = 'Totals';
@@ -101,18 +99,14 @@ function footer() {
     for (var j in storesArray) {
       totalSoldPerHour += storesArray[j].cookiesPerHr[i];
     }
-
     thEl.textContent = totalSoldPerHour;
     trEl.appendChild(thEl);
-
     grandTotal += totalSoldPerHour;
-
   }
   thEl = document.createElement('th');
   thEl.textContent = grandTotal;
   trEl.appendChild(thEl);
   storeTable.appendChild(trEl);
-
 }
 renderAll();
 
@@ -141,3 +135,4 @@ function handleFormSubmit(event) {
   }
 };
 storeInput.addEventListener('submit', handleFormSubmit);
+
