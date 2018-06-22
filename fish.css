@@ -1,32 +1,65 @@
+
 body {
   width: 960px;
   margin: 0 auto;
-background-color: #EDF5e1;
-
+  background-color: #EDF5e1;
+ 
 }
 h1 {
+  font-family: 'Pacifico', cursive;
   background-color: #05386b;
   text-align: center;
+  font-size: 40px;
 }
-#content {
-  overflow: auto;
-  height: 100%;
-}
+
+
 
 .menu {
   text-align: center;
   background-color:#efefef;
   padding: 10px;
   margin: 10px;
+  font-family: 'Pathway Gothic One', sans-serif;
 }
 
-.column1, .column2, .column3 {
+div {
   background-color: #efefef;
-  width: 300px;
+  width: 150px;
   margin: 10px;
+ clear: both;
+ font-family: 'Pathway Gothic One', sans-serif;
 }
 
 li {
   display: inline;
   padding: 5px;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+footer {
+  clear: both;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+p {
+  float:right;
+  width: 300px;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+  width: 300px;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+table, th, td {
+  border: 1px solid black;
+  width: 300px;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+img {
+  width: 100px;
+  height: auto;
 }
