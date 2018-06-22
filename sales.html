@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Pacifico|Pathway+Gothic+One');
-        </style>
-  </head>
-  <link rel="stylesheet" type="text/css" href="./fish.css"/>
-  
-  <body>
-    <h1>Want to be a part of our franchise?</h1>
-    <nav class="menu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-         <li><a href="styleSheet.html">Style Sheet</a></li>
-         <li><a href="aboutUs.html"
-          onclick="return confirm('I warned you.');">Don't click me</a></li>
 
-       </ul>
-     </nav>
-    <form id="storeInput">
-      <fieldset>
-        <legend>Store Submission</legend>
-        <label for="location">Store Name:</label>
-        <input name="location" type="text" size="50"/><br>
-        
-        <label for="hoursOpen">Hours Open: </label>
-        <input name="hoursOpen" type="text" size="50"/><br>
-        
-        <label for="min">Minimum Customers: </label>
-        <input name="min" type="text" size="50"/><br>
-        
-        <label for="max">Maximum Customers: </label>
-        <input name="max" type="text" size="50"/><br>
-        
-        <label for="avgSales">Average Sales per person: </label>
-        <input name="avgSales" type="text" size="50"/><br>
-        
-        <button type="submit">Submit</button>
-        
-        
-      </fieldset>
-      <!-- Trying to figure out IDs to link to JS. -->
-    </form>
-    <section id="store">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Pacifico|Pathway+Gothic+One');
+  </style>
+</head>
+<link rel="stylesheet" type="text/css" href="./fish.css" />
+
+<body>
+  <h1>Want to be a part of our franchise?</h1>
+  <nav class="menu">
+    <ul>
+      <li>
+        <a href="./index.html">Home</a>
+      </li>
+      <li>
+        <a href="./styleSheet.html">Style Sheet</a>
+      </li>
+      <li>
+        <a href="./aboutUs.html" onclick="return confirm('I warned you.');">Don't click me</a>
+      </li>
+    </ul>
+  </nav>
+  <form id="storeInput">
+    <fieldset>
+      <legend>Store Submission</legend>
+      <label for="location">Store Name:</label>
+      <input name="location" type="number" size="50" />
+      <br>
+      <label for="hoursOpen">Hours Open: </label>
+      <input name="hoursOpen" type="number" size="50" />
+      <br>
+      <label for="min">Minimum Customers: </label>
+      <input name="min" type="number" size="50" />
+      <br>
+      <label for="max">Maximum Customers: </label>
+      <input name="max" type="number" size="50" />
+      <br>
+      <label for="avgSales">Average Sales per person: </label>
+      <input name="avgSales" type="number" size="50" />
+      <br>
+      <button type="submit">Submit</button>
+    </fieldset>
+  </form>
+  <section id="store">
     <ul id="newList"></ul>
   </section>
-  <script src="cookiestand.js"/>
-    <link rel="stylesheet" type="text/css" href="./fish.css" />
-  </body>
+  <script src="./cookiestand.js" /></script>
+  <link rel="stylesheet" type="text/css" href="./fish.css" />
+</body>
+
 </html>
-
-<!-- //The minimum number of customers per hour.
-// The maximum number of customers per hour.
-// The average number of cookies purchased per customer
-//6am-8pm
-//Stores the min/max hourly customers, and the average cookies per customer, in object properties
-
-// Uses a method of that object to generate a random number of customers per hour. Objects/Math/random
-
-// Calculate and store the simulated amounts of cookies purchased for each hour at each location using average cookies purchased and the random number of customers generated
-
-// Store the results for each location in a separate array... perhaps as a property of the object representing that location
-
-// Display the values of each array as unordered lists in the browser -->

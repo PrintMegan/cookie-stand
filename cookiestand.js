@@ -1,9 +1,7 @@
 'use strict';
 
-var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-// var container = document.getElementById('store');
 
-//STORE LOCATIONS TO BE USED
+var hours = ['6am', ' 7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 var storeInput = document.getElementById('storeInput');
 var storeTable = document.getElementById('store');
 var storesArray = [];
@@ -20,7 +18,7 @@ function SalmonCookies(location, hoursopen, min, max, avgSales) {
   this.totalSales = 0;
   storesArray.push(this);
 };
-
+//locations for constructor
 new SalmonCookies('College and Pence', 8, 23, 65, 6.3);
 new SalmonCookies('Chandler and 14th', 8, 3, 24, 1.4);
 new SalmonCookies('Fresno and 14th', 8, 11, 38, 3.7);
@@ -48,7 +46,6 @@ SalmonCookies.prototype.render = function () {
   var tdEl = document.createElement('td');
   tdEl.textContent = this.location;
   trEl.appendChild(tdEl);
-
   for (var i in this.cookiesPerHr) {
     tdEl = document.createElement('td');
     tdEl.textContent = this.cookiesPerHr[i];
@@ -60,13 +57,12 @@ SalmonCookies.prototype.render = function () {
   storeTable.appendChild(trEl);
 };
 
-//Header of times
+//Header of AM PM times
 var createHeader = function () {
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
   thEl.textContent = 'Stores';
   trEl.appendChild(thEl);
-
   for (var i in hours) {
     thEl = document.createElement('th');
     thEl.textContent = hours[i];
@@ -85,14 +81,13 @@ function renderAll() {
   }
   footer();
 }
-
+//COLUMN FOR TOTALS
 function footer() {
   var grandTotal = 0;
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
   thEl.textContent = 'Totals';
   trEl.appendChild(thEl);
-
   for (var i in hours) {
     var totalSoldPerHour = 0;
     thEl = document.createElement('th');
@@ -110,10 +105,9 @@ function footer() {
 }
 renderAll();
 
-// //event handler
+// //event handler adding NEW cookiestore through form
 function handleFormSubmit(event) {
   event.preventDefault();
-
   var location = event.target.location.value;
   var hoursopen = event.target.hoursOpen.value;
   var min = parseInt(event.target.min.value);
@@ -122,13 +116,11 @@ function handleFormSubmit(event) {
 
   if (!location || !hoursopen || !min || !max || !avgSales)
     return alert('Please fill out form completely');
-
   event.target.location.value = null;
   event.target.hoursOpen.value = null;
   event.target.min.value = null;
   event.target.max.value = null;
   event.target.avgSales.value = null;
-
   new SalmonCookies(location, hoursopen, min, max, avgSales);
   {
     renderAll();
