@@ -6,6 +6,7 @@ var storeInput = document.getElementById('storeInput');
 var storeTable = document.getElementById('store');
 var storesArray = [];
 
+
 //CONSTRUCTOR FUNCTION FOR COOKIE SHOP
 function SalmonCookies(location, hoursopen, min, max, avgSales) {
   this.location = location;
